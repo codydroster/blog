@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+}
+
+#file-list {
+    flex: 1;
+    margin-right: 20px;
+}
+
+#document-viewer {
+    flex: 4;
+    border: 1px solid #ddd;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
