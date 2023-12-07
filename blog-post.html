@@ -31,30 +31,105 @@
                     <!-- Full Blog Post -->
                     <article class="uk-article">
                         <h1 class="uk-article-title"><a class="uk-link-reset" href="">Arduino PLC Clock Project</a></h1>
+                      
                         <p class="uk-article-meta">04 November 2023</p>
+                        <a class="uk-button uk-button-text" style="color: #075e91; margin-bottom: 20px;" href="code.html">Code</a>
                         
-                        <!-- Full content of the blog post goes here -->
-                        <div>
-                            <a class="uk-button uk-button-text" style="color: #075e91;" href="code.html">Code</a>
+                        <p class="uk-text-default" style="margin-bottom: 20px" >
+                            The machine is made up of 3 axes. The X and Y axis were salvaged from a K40 laser cutter, and the Z axis is made up of a NEMA 11 non-captive stepper motor,
+                            and a few other pieces. A fourth motor driver and 2 stepper motors are used to index the plywood forward after each row is cut. 
+                        </p>
+                        <img src="img/assembly.png" width="uk-width-1-1">
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+                            The engraving and cutting is done with a 20W laser module. This laser engraves each digit needed for the current time and cuts out a 20mm x 30mm piece.
+                            The laser input is a 0-12V PWM signal. The PWM input is connected to one of the 0-10V analog outputs on the controller (laserPWM).
+                        </p>
+                        <div style="display: flex;">
+                            <img src="img/lasermv.png" style="max-width: 50%; margin-right: 50px; ">
+                            <img src="img/lasersch.png" style="max-width: 25%; margin-bottom: 00px;">
+                        </div>
+
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+                            Once cut, the hand on the Z-axis picks the piece and places it into the clock face, 4 solenoids are used to drop the existing digit out before the new one is placed.
+                            A 4 channel MOSFET board is used to control these solenoids. An 8Ohm 50W resistor is used to limit the current. Only 1 solenoid fires at a time, so
+                            limiting the current on the main supply works fine.
+                        </p>
+                        <img src="img/solrelay.png" width="50%">
+
+
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+                            The machine is controlled by an Arduino Portenta Machine Control. Each stepper motor drive requires a pulse and direction input.
+                            On the PLC side there is a function block that handles the moves. The function block takes in the requested XYZ positions and outputs them to
+                            XPos, YPos, ZPos. These 3 variables are compared with XPosAct, YPosAct, ZPosAct (actual positions) to determine if the  requested move is complete.
+                            These 6 variables are shared with the arduino side of the platform.
+                        </p>
+
+
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+
+
+                            The PLC side of the controller has a period of 10ms, too slow for any adequate stepping (3200 step/Rev * .01sec/step = 32sec/Rev).
+                            The Arduino sketch handles the direction/stepping of the motor since that core is running somewhere in the Mhz range.
+
+                        </p>
+
+                  
+
+                        <div style="display: flex; margin-bottom: 50px;">
+                            <img src="img/steppersch.png" style="max-width: 25%; margin-bottom: 100px;">
+                            <img src="img/stepperSeq.png" style="max-width: 75%;">
                         </div>
 
 
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+                            The controller has an RTC that is accessible through the arduino sketch. Two variables: 'hour', and 'minute' are exported from the sketch and used to get the current
+                            time. In the structured text program, the minutes and hours are further divided into 4 digits that will make up the time. The placedCur[] array tracks the pieces in the clock face,
+                            and determines which digit is needed next. The cascading If statements are used to make sure that the most significant parts of the time
+                            are cut first.
+
+                        </p>
+
+                            <img src="img/timeget.png" style="max-width:75%; margin-bottom: 0px;">
+
+                        
 
 
-    <div id="file-list">
-        <!-- List of files -->
-        <button onclick="showDocument('arduino_clock.pdf')">Document 1</button>
-        <button onclick="showDocument('img/meme.png')">Document 2</button>
-        <!-- Add more buttons for additional documents -->
-    </div>
-    <div id="uk-document-viewer">
-        <!-- Area where the document will be displayed -->
-        <img id="document-frame" width="100%" height="600px"></img>
-    </div>
+
+                        <p class="uk-text-default" style="margin-bottom: 20px">
 
 
-                        <!-- ... rest of your blog content ... -->
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/c2gL1WCwRLc?si=rDTa6DhfPO8-1-7C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </p>
+
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+                            Each digit has its own function block, the function block takes in the relative zero coordinates of the current piece being cut,
+                            and sequences through a series of moves to engrave the digit. Each digit was drawn in CAD and the coordinates of each point added
+                            to the respective function block.
+                          </p>
+
+                        <img src="img/engrave1.png">
+
+                        <div style="display: flex;">
+                            <img src="img/engrave.png" style="max-width: 70%; max-height: 50%; margin-right: 50px;">
+                            <img src="img/digit3.png" style="max-width: 30%; margin-bottom: 100px; margin-top: 100px;">
+                        </div>
+
+
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+                            The program is split into 5 different sequences which continually loop through once the start button is pressed. The bit relative to the sequence is set/reset and the
+                            sequence is set back to its initial state.
+                        </p>
+
+
+                        <img src="img/sched.png" style="max-width: 75%; margin-bottom: 0px;">
+
+
+
+
+
+
+
+
+ 
                         
                     </article>
                 </div>

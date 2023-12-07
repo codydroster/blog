@@ -1,9 +1,10 @@
 function showDocument(fileName) {
-    var iframe = document.getElementById('document-frame');
-    iframe.src = fileName;
+    var iframe2 = document.getElementById('document-frame');
+    iframe2.src = fileName;
 
 }
 // Automatically display the first document when the page loads
-//window.onload = function() {
-    //showDocument('arduino_clock.pdf');
-//}
+window.onload = function() {
+    document.getElementById('defaultDoc').click();
+
+}
