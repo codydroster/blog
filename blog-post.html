@@ -40,9 +40,17 @@
                             and a few other pieces. A fourth motor driver and 2 stepper motors are used to index the plywood forward after each row is cut. 
                         </p>
                         <img src="img/assembly.png" width="uk-width-1-1">
+
+                        <p class="uk-text-default" style="margin-bottom: 20px" >
+                            The board is fed with 24V, the digital outputs and digital IO portions of the board require 24V but seem to work
+                            fine using lower voltages.
+                        </p>
+
+
+                        <img src="img/mainboardsch.png" width="uk-width-1-1">
                         <p class="uk-text-default" style="margin-bottom: 20px">
                             The engraving and cutting is done with a 20W laser module. This laser engraves each digit needed for the current time and cuts out a 20mm x 30mm piece.
-                            The laser input is a 0-12V PWM signal. The PWM input is connected to one of the 0-10V analog outputs on the controller (laserPWM).
+                            The input to the laser is a 0-12V PWM signal. The PWM input is connected to one of the 0-10V analog outputs on the controller (laserPWM).
                         </p>
                         <div style="display: flex;">
                             <img src="img/lasermv.png" style="max-width: 50%; margin-right: 50px; ">
@@ -51,8 +59,7 @@
 
                         <p class="uk-text-default" style="margin-bottom: 20px">
                             Once cut, the hand on the Z-axis picks the piece and places it into the clock face, 4 solenoids are used to drop the existing digit out before the new one is placed.
-                            A 4 channel MOSFET board is used to control these solenoids. An 8Ohm 50W resistor is used to limit the current. Only 1 solenoid fires at a time, so
-                            limiting the current on the main supply works fine.
+                            A 4 channel MOSFET board is used to control these solenoids. An 8Ohm 50W resistor is used to limit the current.
                         </p>
                         <img src="img/solrelay.png" width="50%">
 
@@ -69,7 +76,7 @@
 
 
                             The PLC side of the controller has a period of 10ms, too slow for any adequate stepping (3200 step/Rev * .01sec/step = 32sec/Rev).
-                            The Arduino sketch handles the direction/stepping of the motor since that core is running somewhere in the Mhz range.
+                            The Arduino sketch handles the direction/stepping of the motor.
 
                         </p>
 
@@ -83,12 +90,16 @@
 
                         <p class="uk-text-default" style="margin-bottom: 20px">
                             The controller has an RTC that is accessible through the arduino sketch. Two variables: 'hour', and 'minute' are exported from the sketch and used to get the current
-                            time. In the structured text program, the minutes and hours are further divided into 4 digits that will make up the time. The placedCur[] array tracks the pieces in the clock face,
+                            time. In the structured text program, the minutes and hours are further divided into 4 digits that will make up the time.
+
+                        </p>
+
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+                            The placedCur[] array tracks the pieces in the clock face,
                             and determines which digit is needed next. The cascading If statements are used to make sure that the most significant parts of the time
                             are cut first.
 
                         </p>
-
                             <img src="img/timeget.png" style="max-width:75%; margin-bottom: 0px;">
 
                         
@@ -102,8 +113,8 @@
 
                         <p class="uk-text-default" style="margin-bottom: 20px">
                             Each digit has its own function block, the function block takes in the relative zero coordinates of the current piece being cut,
-                            and sequences through a series of moves to engrave the digit. Each digit was drawn in CAD and the coordinates of each point added
-                            to the respective function block.
+                            and sequences through a series of moves to engrave the digit. Each digit has a series of coordinates which are translated into
+                            linear moves to engrave a number.
                           </p>
 
                         <img src="img/engrave1.png">
