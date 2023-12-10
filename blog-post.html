@@ -44,14 +44,14 @@
 
                         <p class="uk-text-default" style="margin-bottom: 20px" >
                             The main power supply provides 24V to the controller, stepper drives, and the 3 limit switches. 12V power supply for the laser and solenoids, and a 5V power supply
-                            for the controller the drives.
+                            for the drive inputs.
                         </p>
                         <img src="img/main_sch.png" width="uk-width-1-1" height="600px">
                         <img src="img/electrical.png" width="uk-width-1-1" height="600px">
 
 
                         <p class="uk-text-default" style="margin-bottom: 20px" >
-                            The board is fed with 24V, the digital outputs and digital IO portions of the board require 24V but seem to work
+                            The controller is fed with 24V, the digital outputs and digital IO portions of the board require 24V but seem to work
                             fine using lower voltages.
                         </p>
 
@@ -74,7 +74,7 @@
 
 
                         <p class="uk-text-default" style="margin-bottom: 20px">
-                            The machine is controlled by an Arduino Portenta Machine Control. Each stepper motor drive requires a pulse and direction input.
+                            The unit is controlled by an Arduino Portenta Machine Control. Each stepper motor drive requires a pulse and direction input.
                             On the PLC side there is a function block that handles the moves. The function block takes in the requested XYZ positions and outputs them to
                             XPos, YPos, ZPos. These 3 variables are compared with XPosAct, YPosAct, ZPosAct (actual positions) to determine if the  requested move is complete.
                             These 6 variables are shared with the arduino side of the platform.
