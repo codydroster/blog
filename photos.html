@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Blog with UIKit</title>
+    <!-- UIKit CSS (local files) -->
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navigation (same as your main page) -->
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left" style="padding-left: 30px;">
+            <a class="uk-navbar-item uk-logo" href="#"></a>
+        </div>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <!--   <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li> -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="uk-section">
+        <div class="uk-container-large" style="padding-left: 30px;">
+            <div class="uk-grid-match" uk-grid>
+                <div class="uk-width-expand@m">
+                    <!-- Full Blog Post -->
+                    <article class="uk-article">
+                        <h1 class="uk-article-title"><a class="uk-link-reset" href="blog-post.html">Arduino PLC Clock Project</a></h1>
+                        <p class="uk-article-meta">09 December 2023</p>
+                        
+                        <!-- Full content of the blog post goes here -->
+
+
+                        <div class="container">
+                            <div id="uk-file-list" style="width: 60px; padding-right: 60px;"">
+                                <!-- Vertical list of files -->
+                                
+                                <button id="defaultDoc" onclick="showDocument('img/assembly.png')" style="width: 100px" ;>0</button>
+                                <button onclick="showDocument('img/electrical.jpeg')" style="width: 100px" >1</button>
+
+                                <button onclick="showDocument('img/1.jpeg')" style="width: 100px" >2</button>
+                                <button onclick="showDocument('img/2.jpeg')" style="width: 100px" >3</button>
+                                <button onclick="showDocument('img/3.jpeg')" style="width: 100px" >4</button>
+                                <button onclick="showDocument('img/4.jpeg')" style="width: 100px" >5</button>
+
+
+
+
+
+
+                                <!-- Add more buttons for additional documents -->
+                            </div>
+                            <div id="document-viewer" style="height: 75vh;">
+                                <!-- Embedding PDF using embed tag -->
+                                <img id="document-frame" style="height: 100%"></img>
+                            </div>
+                        </div>
+
+                        <!-- ... rest of your blog content ... -->
+                        
+                    </article>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (optional, if you want to include it) -->
+    <!-- ... -->
+
+    <!-- UIKit JS (local files) -->
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
