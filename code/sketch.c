@@ -1,4 +1,4 @@
-// shared variables can be accessed with PLCIn.varname and PLCOut.varname
+
 
 #include <Arduino_MachineControl.h>
 
@@ -10,6 +10,7 @@
 #define XPUL_PIN 1
 #define YPUL_PIN 3
 #define ZPUL_PIN 5
+#define APUL_PIN 7
 #define ACCELDEF 1500
 
 
@@ -66,6 +67,8 @@ void setup()
     }
     attachInterrupt(RTC_INT, callback_alarm, FALLING);
 
+
+	AxelPLC.Run();
 }
 
 void loop()
@@ -114,7 +117,7 @@ void loop()
     PLCIn.YPosAct = YPos;
     PLCIn.ZPosAct = ZPos;
 
-    PulseLowX(currentMicros);
+    PulseLow(currentMicros, );
     PulseLowY(currentMicros);
     PulseLowZ(currentMicros);
     PulseLowA(currentMicros);
@@ -132,184 +135,156 @@ void callback_alarm() {
 
 void HomeX() {
 
- 
-    if(digital_inputs.read(DIN_READ_CH_PIN_00) == true) {
-        delay(2);
-        if(digital_inputs.read(DIN_READ_CH_PIN_00) == true) {
-            delay(2);
-            if(digital_inputs.read(DIN_READ_CH_PIN_00) == true) {
-                //get away from home prox before homing sequence. Use delay since we're in a loop.
+            if(ReadInputDebounce(DIN_READ_CH_PIN_00)) {
+                //get away from home prox before homing sequence.
                 //Positive Dir
                  for(int i = 0; i < awayFromHomeShort; i++) {
                     digital_outputs.set(XDIR_PIN, LOW);
-                    MoveFast(XPUL_PIN);
+                    MoveAtSpeed(XPUL_PIN, homingSpd);
                     }
                     //Move negative until we reach home prox
-                    while(digital_inputs.read(DIN_READ_CH_PIN_00) != true) {
+                    while(!ReadInputDebounce(DIN_READ_CH_PIN_00)) {
                         digital_outputs.set(XDIR_PIN, HIGH);
-                        MoveSlow(XPUL_PIN);
+                        MoveAtSpeed(XPUL_PIN, homingSpdSlow);
                     }
                     //Set position to 0 once prox activated
                     XPos = 0;
-    }
-    }
-    }
+            
+                
+            } else {
 
-    
-    //debounce?
-    if(digital_inputs.read(DIN_READ_CH_PIN_00) != true) {
-        delay(2);
-        if(digital_inputs.read(DIN_READ_CH_PIN_00) != true) {
-            delay(2);
-            if(digital_inputs.read(DIN_READ_CH_PIN_00) != true) {
                 //Move towards home, negative
-                while(digital_inputs.read(DIN_READ_CH_PIN_00) != true) {
+                while(!ReadInputDebounce(DIN_READ_CH_PIN_00)) {
                     digital_outputs.set(XDIR_PIN, HIGH);
-                    MoveFast(XPUL_PIN);
+                    MoveAtSpeed(XPUL_PIN, homingSpd);
                 }
+
+                
                 //Move away from home, positive
                 for(int i = 0; i < awayFromHomeShort; i++) {
                     digital_outputs.set(XDIR_PIN, LOW);
-                    MoveFast(XPUL_PIN);
+                    MoveAtSpeed(XPUL_PIN, homingSpd);
                     }
                 // towards home, negative
-                while(digital_inputs.read(DIN_READ_CH_PIN_00) != true) {
+                while(!ReadInputDebounce(DIN_READ_CH_PIN_00)) {
                     digital_outputs.set(XDIR_PIN, HIGH);
-                    MoveSlow(XPUL_PIN);
+                    MoveAtSpeed(XPUL_PIN, homingSpdSlow);
                 }
                 XPos = 0;
        
-    }
-    }
-}
+            }
+            
             //Clearance
         while(XPos < 1000) {
             digital_outputs.set(XDIR_PIN, LOW);
-            MoveSlow(XPUL_PIN);
+            MoveAtSpeed(XPUL_PIN, homingSpdSlow);
             XPos++;
 
         }
+
 }
 
 
 
 void HomeY() {
 
- 
-     if(digital_inputs.read(DIN_READ_CH_PIN_01) == true) {
-        delay(2);
-        if(digital_inputs.read(DIN_READ_CH_PIN_01) == true) {
-            delay(2);
-            if(digital_inputs.read(DIN_READ_CH_PIN_01) == true) {
+            if(ReadInputDebounce(DIN_READ_CH_PIN_01)) {
                 //get away from home prox before homing sequence. Use delay since we're in a loop.
                     //Positive Dir
                 for(int i = 0; i < awayFromHomeShort; i++) {
                     digital_outputs.set(YDIR_PIN, LOW);
-                    MoveFast(YPUL_PIN);
-                    
+                    MoveAtSpeed(YPUL_PIN, homingSpd);
                     }
                 //Move negative until we reach home prox
         
-                while(digital_inputs.read(DIN_READ_CH_PIN_01) != true) {
+                while(!ReadInputDebounce(DIN_READ_CH_PIN_01)) {
                     digital_outputs.set(YDIR_PIN, HIGH);
-                    MoveSlow(YPUL_PIN);
+                    MoveAtSpeed(YPUL_PIN, homingSpdSlow);
                 }
                 //Set position to 0 once prox activated
                 YPos = 0;
-    }
-    }
-    }
-    
-    if(digital_inputs.read(DIN_READ_CH_PIN_01) != true) {
-        delay(2);
-        if(digital_inputs.read(DIN_READ_CH_PIN_01) != true) {
-            delay(2);
-            if(digital_inputs.read(DIN_READ_CH_PIN_01) != true) {
-            //Move towards home, negative
-            while(digital_inputs.read(DIN_READ_CH_PIN_01) != true) {
-                digital_outputs.set(YDIR_PIN, HIGH);
-                MoveFast(YPUL_PIN);
-            }
-            
-    
-            //Move away from home, positive
-            for(int i = 0; i < awayFromHomeShort; i++) {
-                digital_outputs.set(YDIR_PIN, LOW);
-                MoveFast(YPUL_PIN);
                 
+            } else {
+
+                while(!ReadInputDebounce(DIN_READ_CH_PIN_01)) {
+                    digital_outputs.set(YDIR_PIN, HIGH);
+                    MoveAtSpeed(YPUL_PIN, homingSpd);
                 }
-            // towards home, negative
-            while(digital_inputs.read(DIN_READ_CH_PIN_01) != true) {
-                digital_outputs.set(YDIR_PIN, HIGH);
-                MoveSlow(YPUL_PIN);
-            }
-            YPos = 0;
+                
+        
+                //Move away from home, positive
+                for(int i = 0; i < awayFromHomeShort; i++) {
+                    digital_outputs.set(YDIR_PIN, LOW);
+                    MoveAtSpeed(YPUL_PIN, homingSpd);
+                    
+                    }
+                // towards home, negative
+                while(!ReadInputDebounce(DIN_READ_CH_PIN_01)) {
+                    digital_outputs.set(YDIR_PIN, HIGH);
+                    MoveAtSpeed(YPUL_PIN, homingSpd);
+                }
+                YPos = 0;
        
     }
+                //Clearance
+        while(YPos < 5000) {
+            digital_outputs.set(YDIR_PIN, LOW);
+            MoveAtSpeed(YPUL_PIN, homingSpdSlow);
+            YPos++;
+
+        }
+    
     }
-    }
-}
+
 
 
 
 void HomeZ() {
 
- 
- if(digital_inputs.read(DIN_READ_CH_PIN_02) == true) {
-     delay(2);
-     if(digital_inputs.read(DIN_READ_CH_PIN_02) == true) {
-         delay(2);
-         if(digital_inputs.read(DIN_READ_CH_PIN_02) == true) {
+        if(ReadInputDebounce(DIN_READ_CH_PIN_02)) {
             //get away from home prox before homing sequence. Use delay since we're in a loop.
                 //Positive Dir
             for(int i = 0; i < awayFromHomeShort; i++) {
                 digital_outputs.set(ZDIR_PIN, LOW);
-                MoveFast(ZPUL_PIN);
+                MoveAtSpeed(ZPUL_PIN, homingSpd);
                 }
                 
             //Move negative until we reach home prox
     
-            while(digital_inputs.read(DIN_READ_CH_PIN_02) != true) {
+            while(!ReadInputDebounce(DIN_READ_CH_PIN_02)) {
                 digital_outputs.set(ZDIR_PIN, HIGH);
-                MoveSlow(ZPUL_PIN);
+                MoveAtSpeed(ZPUL_PIN, homingSpdSlow);
             }
             //Set position to 0 once prox activated
             ZPos = 0;
-    }
-    }
-    }
+            
+        } else {
     
-    
-    if(digital_inputs.read(DIN_READ_CH_PIN_02) != true) {
-        delay(2);
-        if(digital_inputs.read(DIN_READ_CH_PIN_02) != true) {
-            delay(2);
-            if(digital_inputs.read(DIN_READ_CH_PIN_02) != true) {
             //Move towards home, negative
-            while(!digital_inputs.read(DIN_READ_CH_PIN_02)) {
+            while(!ReadInputDebounce(DIN_READ_CH_PIN_02)) {
                 digital_outputs.set(ZDIR_PIN, HIGH);
-                MoveFast(ZPUL_PIN);
+                MoveAtSpeed(ZPUL_PIN, homingSpd);
             }
-    
+        
             //Move away from home, positive
             for(int i = 0; i < awayFromHomeShort; i++) {
                 digital_outputs.set(ZDIR_PIN, LOW);
-                MoveFast(ZPUL_PIN);
-                
+                MoveAtSpeed(ZPUL_PIN, homingSpd);
+                    
                 }
             // towards home, negative
-            while(digital_inputs.read(DIN_READ_CH_PIN_02) != true) {
+            while(!ReadInputDebounce(DIN_READ_CH_PIN_02)) {
                 digital_outputs.set(ZDIR_PIN, HIGH);
-                MoveSlow(ZPUL_PIN);
+                MoveAtSpeed(ZPUL_PIN, homingSpdSlow);
             }
             ZPos = 0;
-            }
-    }
-    }
+        }
+    
+    
         //Clearance
-        while(ZPos < 12000) {
+        while(ZPos < 14500) {
             digital_outputs.set(ZDIR_PIN, LOW);
-            MoveFast(ZPUL_PIN);
+            MoveAtSpeed(ZPUL_PIN, homingSpd);
             ZPos++;
 
         }
@@ -319,7 +294,7 @@ void HomeZ() {
 
 
 void MovePosX(unsigned long currentMicros) {
-     if (currentMicros - previousMicrosX >= PLCOut.XSpeed + accelX) {
+    if (currentMicros - previousMicrosX >= PLCOut.XSpeed + accelX) {
         // negative
         
            //100    <    200    
@@ -335,9 +310,9 @@ void MovePosX(unsigned long currentMicros) {
                 if(accelX < ACCELDEF) {
                     accelX++;
               
+            }
         }
-        }
-        }
+    }
      
             //200       100
         if(PLCOut.XPos > XPos) {
@@ -354,7 +329,7 @@ void MovePosX(unsigned long currentMicros) {
                     accelX++;
                 }
             }
-    }
+        }
     
         previousMicrosX = currentMicros;
         if(PLCOut.XPos == XPos) {
@@ -471,24 +446,25 @@ void MoveA(unsigned long currentMicros) {
 
 }
 
-void MoveSlow(int pul) {
+void MoveAtSpeed(int pul, int speed) {
     digital_outputs.set(pul, HIGH);
-    delayMicroseconds(homingSpdSlow);
+    delayMicroseconds(speed);
     digital_outputs.set(pul, LOW);
-    delayMicroseconds(homingSpdSlow);
-}
-
-void MoveFast(int pul) {
-    digital_outputs.set(pul, HIGH);
-    delayMicroseconds(homingSpdFast);
-    digital_outputs.set(pul, LOW);
-    delayMicroseconds(homingSpdFast);
+    delayMicroseconds(speed);
 }
 
 
 
+bool ReadInputDebounce(int pin) {
+    bool firstRead = digital_inputs.read(pin);
+    delay(2); // Wait for the specified debounce delay
+    bool secondRead = digital_inputs.read(pin);
+    return (firstRead && secondRead); // Return true only if both readings are true
+}
 
-void PulseLowX(unsigned long currentMicros) {
+
+
+void PulseLow(unsigned long currentMicros) {
     if(currentMicros - previousMicrosX > 100) {
         digital_outputs.set(1, LOW);
 
@@ -515,7 +491,6 @@ void PulseLowA(unsigned long currentMicros) {
 
     }
 }
-
 
 
 
