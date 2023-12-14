@@ -117,7 +117,7 @@ void loop()
     PLCIn.YPosAct = YPos;
     PLCIn.ZPosAct = ZPos;
 
-    PulseLow(currentMicros, );
+    PulseLowX(currentMicros);
     PulseLowY(currentMicros);
     PulseLowZ(currentMicros);
     PulseLowA(currentMicros);
@@ -464,7 +464,7 @@ bool ReadInputDebounce(int pin) {
 
 
 
-void PulseLow(unsigned long currentMicros) {
+void PulseLowX(unsigned long currentMicros) {
     if(currentMicros - previousMicrosX > 100) {
         digital_outputs.set(1, LOW);
 
