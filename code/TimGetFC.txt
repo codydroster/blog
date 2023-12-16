@@ -1,0 +1,36 @@
+FUNCTION TimGet: BOOL
+
+VAR_EXTERNAL
+	timeRTC : ARRAY[0..3] OF INT;
+	placedCur : ARRAY[0..3] OF INT;
+	placeIndex : INT;
+	minute : INT;
+	hour : INT;
+END_VAR
+
+
+
+
+timeRTC[0] := minute MOD 10;
+timeRTC[1] := minute / 10;
+
+timeRTC[2] := hour MOD 10;
+timeRTC[3] := hour / 10;
+
+/* placedCur[3] is hour1 and also most significant.
+If time changes, reset placedCur[x] to -1 and drop piece. */
+IF(placedCur[3] = -1) THEN
+	placeIndex := 3;
+
+ELSIF(placedCur[2] = -1) THEN
+	placeIndex := 2;
+
+ELSIF(placedCur[1] = -1) THEN
+	placeIndex := 1;
+	
+ELSIF(placedCur[0] = -1) THEN
+	placeIndex := 0;
+
+END_IF;
+
+//set placedCur[x] to -1 when time changes, and not in motion.

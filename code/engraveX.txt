@@ -1,24 +1,19 @@
-FUNCTION_BLOCK EngraveX
+FUNCTION EngraveX: BOOL
 
 VAR_INPUT
 	YPOS0 : INT;
 	XPOS0 : INT;
-	XPOSACT : INT;
-	YPOSACT : INT;
-END_VAR
-
-VAR_OUTPUT
-	LASERPWM : REAL;
-	XPOSOUT : INT;
-	YPOSOUT : INT;
 END_VAR
 
 VAR_EXTERNAL
 	curSeq : INT;
 	cutDigit : INT;
+	laserPWM : REAL;
+	XPosAct : INT;
+	YPosAct : INT;
+	XPos : INT;
+	YPos : INT;
 END_VAR
-
-
 
 
 
@@ -27,40 +22,40 @@ END_VAR
 IF (cutDigit = 0) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 450;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 24) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 550;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 550;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN 
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN 
 curSeq := curSeq + 1;
 END_IF;
 
@@ -69,7 +64,7 @@ END_IF;
 //23 is a placeholder for last sequence
 IF(curSeq > 24) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 
 END_IF;
 END_IF;
@@ -80,45 +75,45 @@ END_IF;
 IF (cutDigit = 1) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 768;
-YPOSOUT := YPOS0 + 1303;
+XPos := XPOS0 + 768;
+YPos := YPOS0 + 1303;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 985;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 985;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 2405;
-YPOSOUT := YPOS0 + 985;
+XPos := XPOS0 + 2405;
+YPos := YPOS0 + 985;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 2405;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2405;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 24) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 25) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -127,7 +122,7 @@ END_IF;
 //23 is a placeholder for last sequence
 IF(curSeq > 25) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;
 
@@ -137,50 +132,50 @@ END_IF;
 IF (cutDigit = 2) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 900;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 700;
+YPos := YPOS0 + 1520;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 1480;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 1480;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 24) THEN
-XPOSOUT := XPOS0 + 1480;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1480;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 25) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 26) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -189,7 +184,7 @@ END_IF;
 //23 is a placeholder for last sequence
 IF(curSeq > 26) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;
 
@@ -199,55 +194,55 @@ END_IF;
 IF (cutDigit = 3) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 1520;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 1475;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 1475;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 1475;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1475;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 24) THEN
-XPOSOUT := XPOS0 + 1575;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1575;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 25) THEN
-XPOSOUT := XPOS0 + 1575;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 1575;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 26) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 27) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 1520;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -256,7 +251,7 @@ END_IF;
 //23 is a placeholder for last sequence
 IF(curSeq > 27) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;
 
@@ -266,35 +261,35 @@ END_IF;
 IF (cutDigit = 4) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 1412;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 1255;
+YPos := YPOS0 + 450;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 1412;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1255;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 741;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 715;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 741;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 715;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -303,7 +298,7 @@ END_IF;
 //23 is a placeholder for last sequence
 IF(curSeq > 23) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;
 
@@ -313,45 +308,45 @@ END_IF;
 IF (cutDigit = 5) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 450;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 1480;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1480;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 1480;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 1480;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 24) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 25) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 1520;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -360,7 +355,7 @@ END_IF;
 //23 is a placeholder for last sequence
 IF(curSeq > 25) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;
 
@@ -370,50 +365,50 @@ END_IF;
 IF (cutDigit = 6) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 450;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 1475;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1475;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 1475;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 1475;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 24) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 25) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 26) THEN
-XPOSOUT := XPOS0 + 1575;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1575;
+YPos := YPOS0 + 1520;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -421,7 +416,7 @@ END_IF;
 //End of engrave sequence looking for 100
 IF(curSeq > 26) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;
 
@@ -431,30 +426,30 @@ END_IF;
 IF (cutDigit = 7) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 1520;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -462,7 +457,7 @@ END_IF;
 //End of engrave sequence looking for 100
 IF(curSeq > 22) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;
 
@@ -472,60 +467,60 @@ END_IF;
 IF (cutDigit = 8) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 450;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 1430;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1430;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 1430;
-YPOSOUT := YPOS0 + 550;
+XPos := XPOS0 + 1430;
+YPos := YPOS0 + 550;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 1530;
-YPOSOUT := YPOS0 + 550;
+XPos := XPOS0 + 1530;
+YPos := YPOS0 + 550;
 END_IF;
 
 IF (curSeq = 24) THEN
-XPOSOUT := XPOS0 + 1530;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1530;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 25) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 26) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 27) THEN
-XPOSOUT := XPOS0 + 550;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 550;
+YPos := YPOS0 + 450;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -533,7 +528,7 @@ END_IF;
 //End of engrave sequence looking for 100
 IF(curSeq > 27) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;
 
@@ -543,45 +538,45 @@ END_IF;
 IF (cutDigit = 9) THEN
 
 IF (curSeq = 20) THEN
-XPOSOUT := XPOS0 + 1475;
-YPOSOUT := YPOS0 + 550;
+XPos := XPOS0 + 1475;
+YPos := YPOS0 + 550;
 END_IF;
 
 
 //Fire laser while moving through sequence
 IF (curSeq > 20) AND (curSeq < 100) THEN
-LASERPWM := 0.8;
+laserPWM := 0.8;
 ELSE
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 
 IF (curSeq = 21) THEN
-XPOSOUT := XPOS0 + 1475;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 1475;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 1520;
 END_IF;
 
 IF (curSeq = 22) THEN
-XPOSOUT := XPOS0 + 450;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 450;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 23) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 450;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 450;
 END_IF;
 
 IF (curSeq = 24) THEN
-XPOSOUT := XPOS0 + 2505;
-YPOSOUT := YPOS0 + 1520;
+XPos := XPOS0 + 2505;
+YPos := YPOS0 + 1520;
 END_IF;
 
 
-IF (XPOSOUT = XPOSACT) AND (YPOSOUT = YPOSACT) THEN
+IF (XPos = XPOSACT) AND (YPos = YPOSACT) THEN
 curSeq := curSeq + 1;
 END_IF;
 
@@ -589,6 +584,6 @@ END_IF;
 //End of engrave sequence looking for 100
 IF(curSeq > 24) THEN
 curSeq := 100;
-LASERPWM := 0.0;
+laserPWM := 0.0;
 END_IF;
 END_IF;

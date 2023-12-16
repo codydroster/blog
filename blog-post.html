@@ -81,8 +81,9 @@
 
                         <p class="uk-text-default" style="margin-bottom: 20px">
                             The unit is controlled by an Arduino Portenta Machine Control. Each stepper motor drive requires a pulse and direction input.
-                            On the PLC side there is a function block that handles the moves. The function block takes in the requested XYZ positions and outputs them to
-                            XPos, YPos, ZPos. These 3 variables are compared with XPosAct, YPosAct, ZPosAct (actual positions) to determine if the  requested move is complete.
+                            On the PLC side there is a function that handles the moves. The function takes in the requested XYZ positions and outputs them to
+                            XPos, YPos, ZPos. These 3 variables are compared with XPosAct, YPosAct, ZPosAct (actual positions) to determine if the  requested move is complete. The function
+                            returns true once XPos = XPosAct, YPos = YPosAct, and ZPos = ZPosAct. 
                             These 6 variables are shared with the arduino side of the platform.
                         </p>
 
@@ -99,7 +100,7 @@
 
                         <div style="display: flex; margin-bottom: 50px;">
                             <img src="img/steppersch.png" style="max-width: 25%; margin-bottom: 100px;">
-                            <img src="img/stepperSeq.png" style="max-width: 75%;">
+                            <img src="img/stepfunction.png" style="max-width: 75%;">
                         </div>
 
 
@@ -131,7 +132,7 @@
 
                           </p>
 
-                        <img src="img/engrave1.png" style="margin-bottom: 10px;">
+                        <img src="img/engraveFunction.png" style="margin-bottom: 10px;">
 
                         <div style="display: flex;">
                             <img src="img/engrave3.png" style="max-width: 60%; max-height: 50%; margin-right: 50px;">
@@ -141,15 +142,18 @@
 
                         <p class="uk-text-default" style="margin-bottom: 20px">
                             The program is split into 5 different sequences which continually loop through once the start button is pressed. The bit relative to the sequence is set/reset and the
-                            sequence is set back to its initial state. Start button is currently emulated by first rung.
+                            sequence is set back to its initial state.
                         </p>
 
 
                         <img src="img/sched2.png" style="max-width: 75%; margin-bottom: 0px;">
 
 
+                        <p class="uk-text-default" style="margin-bottom: 20px">
+                            Start, Stop, and Home push buttons are currently emulated.
+                        </p>
 
-
+                        <img src="img/pb.png" style="max-width: 75%; margin-bottom: 0px;">
 
 
 
