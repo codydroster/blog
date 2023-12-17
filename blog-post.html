@@ -73,7 +73,7 @@
                         </div>
 
                         <p class="uk-text-default" style="margin-bottom: 20px">
-                            Once cut, the hand on the Z-axis picks the piece and places it into the clock face, 4 solenoids are used to drop the existing digit out before the new one is placed.
+                            4 solenoids are used to drop the existing digit out before the new one is placed.
                             A 4 channel MOSFET board is used to control these solenoids.
                         </p>
                         <img src="img/solrelay.png" width="50%">
@@ -91,16 +91,16 @@
                         <p class="uk-text-default" style="margin-bottom: 20px">
 
 
-                            The PLC side of the controller has a period of 10ms, too slow for any adequate stepping (3200 step/Rev * .01sec/step = 32sec/Rev).
-                            The Arduino sketch handles the direction/stepping of the motor.
+                            
+                            The Arduino sketch portion of the controller handles the direction/stepping of the motor.
 
                         </p>
 
                   
 
                         <div style="display: flex; margin-bottom: 50px;">
-                            <img src="img/steppersch.png" style="max-width: 25%; margin-bottom: 100px;">
-                            <img src="img/stepfunction.png" style="max-width: 75%;">
+                            <img src="img/steppersch.png" style="max-width: 50%;">
+                            <img src="img/stepfunction.png" style="max-width: 50%;">
                         </div>
 
 
